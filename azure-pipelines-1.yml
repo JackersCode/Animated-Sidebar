@@ -27,27 +27,43 @@ stages:
              ls -alrt
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -s -f -a $BH_APP_ID -p ./ --info
              ls -alrt /home/vsts/work/1/s/
+             env:
+              SecretOne : $(BH_API_KEY)
+              SecretTwo : $(BH_APP_ID)
 
         - task: CmdLine@2
           displayName: SecureStack SCA Scan
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -t node -a $BH_APP_ID -p /opt/ --info
+             env:
+              SecretOne : $(BH_API_KEY)
+              SecretTwo : $(BH_APP_ID)
+
 
         - task: CmdLine@2
           displayName: SecureStack Combination SCA & Secrets scan
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -s -d 100 -t node -a $BH_APP_ID -p /opt/ --info
+             env:
+              SecretOne : $(BH_API_KEY)
+              SecretTwo : $(BH_APP_ID)
 
         - task: CmdLine@2
           displayName: SecureStack Web Exposure Scan
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli recon -a $BH_APP_ID --info
+             env:
+              SecretOne : $(BH_API_KEY)
+              SecretTwo : $(BH_APP_ID)
 
         - task: CmdLine@2
           displayName: SecureStack SBOM
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli SBOM -r -a $BH_APP_ID
+             env:
+              SecretOne : $(BH_API_KEY)
+              SecretTwo : $(BH_APP_KEY)
