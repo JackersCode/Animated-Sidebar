@@ -35,9 +35,9 @@ jobs:
           severity: critical
           flags: '--dom -r --info'
           
-      - name: SecureStack - Application Bill of Materials
-        id: abom
-        uses: SecureStackCo/actions-abom@v0.1.2
+      - name: SecureStack - Software Bill of Materials
+        id: Sbom
+        uses: SecureStackCo/actions-sbom@v0.1.2
         with:
           securestack_api_key: ${{ secrets.SECURESTACK_API_KEY }}
           securestack_app_id: ${{ secrets.SECURESTACK_APP_ID }}
