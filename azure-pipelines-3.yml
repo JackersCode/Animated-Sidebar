@@ -1,16 +1,11 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+    - main
 
 resources:
     - repo: self
 
 variables:
-    - group : DevOps Pipeline
+    - group: DevOps Pipeline
 
 stages:
     - stage: Test
@@ -31,13 +26,11 @@ stages:
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -s -f -a $BH_APP_ID -p ./ --info
              ls -alrt /home/vsts/work/1/s/
 
-
         - task: CmdLine@2
           displayName: SecureStack SCA Scan
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -t node -a $BH_APP_ID -p /opt/ --info
-
 
         - task: CmdLine@2
           displayName: SecureStack Combination SCA & Secrets scan
@@ -45,13 +38,11 @@ stages:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli code -s -d 100 -t node -a $BH_APP_ID -p /opt/ --info
 
-
         - task: CmdLine@2
           displayName: SecureStack Web Exposure Scan
           inputs:
             script: |
              docker run --rm -v "${PWD}:/opt" -e BH_API_KEY -e BH_APP_ID -e BH_SEVERITY securestackau/bloodhound-cli recon -a $BH_APP_ID --info
-
 
         - task: CmdLine@2
           displayName: SecureStack SBOM
