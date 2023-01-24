@@ -4,7 +4,7 @@ trigger:
 resources:
     - repo: self
 variables:
-    - group: DevOps Pipeline
+    - group: Non-Secret
 
 stages:
     - stage: Test
