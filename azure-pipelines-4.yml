@@ -4,10 +4,7 @@ trigger:
 resources:
     - repo: self
 variables:
-      tag: '$(Build.BuildId)'
-      BH_API_KEY: "BH_API_KEY"
-      BH_APP_ID: "BH_APP_ID"
-      BH_SEVERITY: "BH_SEVERITY"
+    - group: DevOps Pipeline
 
 stages:
     - stage: Test
